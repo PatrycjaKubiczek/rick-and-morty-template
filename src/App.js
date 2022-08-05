@@ -1,9 +1,12 @@
 import './App.css';
 
+import { Container, Flex, Grid, GridItem } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
+import { Button } from '@chakra-ui/react';
 import Card from './components/Card/Card';
 import Header from './components/Header/Header';
+import { Link } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 
 function App() {
@@ -36,26 +39,41 @@ function App() {
             });
     }, []);
 
+    if (loading) {
+        return <div>Loading... A moment please.</div>;
+    }
+    if (error) {
+        return (
+            <div>{`There is a problem fetching the post data - ${error}`}</div>
+        );
+    }
+    if (!characters) {
+        return <div>No characters found</div>;
+    }
+
     return (
-        <div className="App">
+        <Container maxW="1200px">
             <Navbar />
             <Header />
-            {loading && <div>A moment please...</div>}
-            {error && (
-                <div>{`There is a problem fetching the post data - ${error}`}</div>
-            )}
-            {characters && (
-                <div className="card-container">
-                    {characters.map((item) => (
-                        <Card
-                            key={item.id}
-                            name={item.name}
-                            image={item.image}
-                        />
-                    ))}
-                </div>
-            )}{' '}
-        </div>
+            <Flex wrap="wrap">
+                {characters.map((item) => (
+                    <Grid gap={5}>
+                        <GridItem mb={4}>
+                            <Card
+                                key={item.id}
+                                name={item.name}
+                                image={item.image}
+                            />
+                            <Button colorScheme="teal" size="xs">
+                                <Link to={`/character/${item.id}`}>
+                                    show more
+                                </Link>
+                            </Button>
+                        </GridItem>
+                    </Grid>
+                ))}
+            </Flex>
+        </Container>
     );
 }
 
