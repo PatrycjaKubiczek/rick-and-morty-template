@@ -1,24 +1,35 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Button, useColorMode } from '@chakra-ui/react';
+
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const StyledNavbar = styled.nav``;
+const StyledNav = styled.nav`
+    margin: 2rem 0;
+`;
+
+const StyledLink = styled(Link)`
+    margin-right: 1rem;
+`;
 
 const Navbar = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
     return (
-        <StyledNavbar>
+        <StyledNav>
             {/* <a className="navbar-brand" href="#">
                 Navbar
             </a> */}
             <div id="navbarNav">
-                <ul className="navbar-nav">
-                    <Link to="/">home</Link>
-                    <Link to="/#">Characters</Link>
-                    <Link to="/#">Episodes</Link>
-                    <Link to="/#">Locations</Link>
-                </ul>
+                <StyledLink to="/">Home</StyledLink>
+                <StyledLink to="/favourites">Favourites</StyledLink>
+                <StyledLink to="/#">Episodes</StyledLink>
+                <StyledLink to="/#">Locations</StyledLink>
+
+                <Button onClick={toggleColorMode}>
+                    Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+                </Button>
             </div>
-        </StyledNavbar>
+        </StyledNav>
     );
 };
 

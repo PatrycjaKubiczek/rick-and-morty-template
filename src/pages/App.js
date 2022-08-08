@@ -1,13 +1,9 @@
-import './App.css';
-
-import { Container, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { Container, Flex } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
-import { Button } from '@chakra-ui/react';
-import Card from './components/Card/Card';
-import Header from './components/Header/Header';
-import { Link } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
+import Card from '../components/Card/Card';
+import Header from '../components/Header/Header';
+import Navbar from '../components/Navbar/Navbar';
 
 function App() {
     const [characters, setCharacters] = useState();
@@ -51,26 +47,20 @@ function App() {
         return <div>No characters found</div>;
     }
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     return (
-        <Container maxW="1200px">
+        <Container maxW="1100px">
             <Navbar />
             <Header />
-            <Flex wrap="wrap">
+            <Flex wrap="wrap" align="center" justify="center" gap="3em">
                 {characters.map((item) => (
-                    <Grid gap={5}>
-                        <GridItem mb={4}>
-                            <Card
-                                key={item.id}
-                                name={item.name}
-                                image={item.image}
-                            />
-                            <Button colorScheme="teal" size="xs">
-                                <Link to={`/character/${item.id}`}>
-                                    show more
-                                </Link>
-                            </Button>
-                        </GridItem>
-                    </Grid>
+                    <Card
+                        id={item.id}
+                        key={item.id}
+                        name={item.name}
+                        image={item.image}
+                    />
                 ))}
             </Flex>
         </Container>

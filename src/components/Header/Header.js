@@ -1,11 +1,11 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-
-import styled from 'styled-components';
-
-const StyledHeader = styled.header``;
+import { Heading } from '@chakra-ui/react';
 
 const Header = () => {
-    return <StyledHeader>Rick and Morty</StyledHeader>;
+    return (
+        <Heading mb={6} align="center">
+            Rick and Morty
+        </Heading>
+    );
 };
 
 export default Header;
