@@ -1,22 +1,37 @@
 import './index.css';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react';
 
-import App from './App';
-import { ChakraProvider } from '@chakra-ui/react';
-import CharacterPage from './CharacterPage';
+import App from './pages/App';
+import CharacterPage from './pages/CharacterPage';
+import FavouritePage from './pages/FavouritePage';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
+
+// const config = {
+//     initialColorMode: 'dark',
+//     useSystemColorMode: true
+// };
+
+const theme = extendTheme({
+    config: {
+        initialColorMode: 'dark',
+        useSystemColorMode: true
+    }
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<App />} />
+                    <Route path="/favourites" element={<FavouritePage />} />
                     <Route
                         path="/character/:characterId"
                         element={<CharacterPage />}
