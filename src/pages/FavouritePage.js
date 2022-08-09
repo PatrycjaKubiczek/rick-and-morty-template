@@ -13,7 +13,7 @@ const Character = () => {
         .sort();
 
     const [favouritesData, setFavouritesData] = useState([]);
-    const [favouritesIDs, setFavouritesIDs] = useState(favouritesFromStorage);
+    const [favouritesIDs] = useState(favouritesFromStorage);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
