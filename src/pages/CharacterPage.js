@@ -8,18 +8,16 @@ import {
     Td,
     Tr
 } from '@chakra-ui/react';
-import { useNavigate, useParams } from 'react-router-dom';
 
-import Navbar from '../components/Navbar/Navbar';
 import { StarIcon } from '@chakra-ui/icons';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 const StyledImg = styled.img`
     border-radius: 20px;
     width: 100%;
 `;
 const Character = () => {
-    let navigate = useNavigate();
     let params = useParams();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
