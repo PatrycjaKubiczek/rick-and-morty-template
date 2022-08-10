@@ -7,7 +7,7 @@ const CharacterPage = () => {
     const favouritesFromStorage =
         localStorage
             .getItem('Favourites')
-            .split('')
+            ?.split('')
             .filter(Number)
             .map((item) => parseInt(item))
             .sort() ?? [];
