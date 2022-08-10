@@ -6,14 +6,11 @@ import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react';
 import App from './pages/App';
 import CharacterPage from './pages/CharacterPage';
 import FavouritePage from './pages/FavouritePage';
+import Layout from './components/Layout/Layout';
+import RandomPage from './pages/RandomPage';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-
-// const config = {
-//     initialColorMode: 'dark',
-//     useSystemColorMode: true
-// };
 
 const theme = extendTheme({
     config: {
@@ -28,15 +25,27 @@ root.render(
     <React.StrictMode>
         <ChakraProvider theme={theme}>
             <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+
             <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<App />} />
-                    <Route path="/favourites" element={<FavouritePage />} />
-                    <Route
-                        path="/character/:characterId"
-                        element={<CharacterPage />}
-                    />
-                </Routes>
+                <Layout>
+                    <Routes>
+                        <Route path="/" element={<App />} />
+                        <Route path="/favourites" element={<FavouritePage />} />
+                        <Route path="/random" element={<RandomPage />} />
+                        <Route
+                            path="/character/:characterId"
+                            element={<CharacterPage />}
+                        />
+                        <Route
+                            path="*"
+                            element={
+                                <main style={{ padding: '1rem' }}>
+                                    <p>There's nothing here!</p>
+                                </main>
+                            }
+                        />
+                    </Routes>
+                </Layout>
             </BrowserRouter>
         </ChakraProvider>
     </React.StrictMode>

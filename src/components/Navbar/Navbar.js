@@ -1,10 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { Button, useColorMode } from '@chakra-ui/react';
+import { Button, Flex, Link, Spacer, useColorMode } from '@chakra-ui/react';
 
-import { Link } from 'react-router-dom';
+import { Link as ReachLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-const StyledNav = styled.nav`
+const StyledNav = styled(Flex)`
     margin: 2rem 0;
 `;
 
@@ -16,19 +15,19 @@ const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
         <StyledNav>
-            {/* <a className="navbar-brand" href="#">
-                Navbar
-            </a> */}
-            <div id="navbarNav">
-                <StyledLink to="/">Home</StyledLink>
-                <StyledLink to="/favourites">Favourites</StyledLink>
-                <StyledLink to="/#">Episodes</StyledLink>
-                <StyledLink to="/#">Locations</StyledLink>
-
-                <Button onClick={toggleColorMode}>
-                    Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-                </Button>
-            </div>
+            <StyledLink as={ReachLink} to="/">
+                Home
+            </StyledLink>
+            <StyledLink as={ReachLink} to="/favourites">
+                Favourites
+            </StyledLink>
+            <StyledLink as={ReachLink} to="/random">
+                Random
+            </StyledLink>
+            <Spacer />
+            <Button onClick={toggleColorMode}>
+                Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+            </Button>
         </StyledNav>
     );
 };

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import HomePage from './HomePage';
+import Card from '../components/Card/Card';
+import { Flex } from '@chakra-ui/react';
 
-function App() {
+function HomePage() {
     const [characters, setCharacters] = useState();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -43,7 +44,18 @@ function App() {
         return <div>No characters found</div>;
     }
 
-    return <HomePage />;
+    return (
+        <Flex wrap="wrap" align="center" justify="center" gap="3em">
+            {characters.map((item) => (
+                <Card
+                    id={item.id}
+                    key={item.id}
+                    name={item.name}
+                    image={item.image}
+                />
+            ))}
+        </Flex>
+    );
 }
 
-export default App;
+export default HomePage;
