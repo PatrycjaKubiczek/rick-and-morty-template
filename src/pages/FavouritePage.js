@@ -4,12 +4,13 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const CharacterPage = () => {
-    const favouritesFromStorage = localStorage
-        .getItem('Favourites')
-        .split('')
-        .filter(Number)
-        .map((item) => parseInt(item))
-        .sort();
+    const favouritesFromStorage =
+        localStorage
+            .getItem('Favourites')
+            .split('')
+            .filter(Number)
+            .map((item) => parseInt(item))
+            .sort() ?? [];
 
     const [favouritesData, setFavouritesData] = useState([]);
     const [favouritesIDs] = useState(favouritesFromStorage);
