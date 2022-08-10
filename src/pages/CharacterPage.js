@@ -1,13 +1,16 @@
-import { Button, Container, Heading } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
 import {
+    Button,
+    Container,
+    Divider,
+    Heading,
     Table,
-    TableCaption,
     TableContainer,
     Tbody,
     Td,
-    Tr
+    Tr,
+    useToast
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 import { StarIcon } from '@chakra-ui/icons';
 import styled from 'styled-components';
@@ -17,6 +20,12 @@ const StyledImg = styled.img`
     border-radius: 20px;
     width: 100%;
 `;
+const StyledHeading = styled(Heading)`
+    border-radius: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+`;
 const Character = () => {
     let params = useParams();
     const [data, setData] = useState([]);
@@ -24,6 +33,7 @@ const Character = () => {
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [isFavorite, setFavourite] = useState(false);
+    const toast = useToast();
 
     const checkIfFavourite = (id) => {
         const favouritesInStorage = localStorage.getItem('Favourites');
@@ -74,6 +84,13 @@ const Character = () => {
         favs.push(id);
         localStorage.setItem('Favourites', JSON.stringify(favs));
         setFavourite(true);
+
+        toast({
+            title: 'Added to favourites',
+            status: 'success',
+            duration: 1200,
+            isClosable: true
+        });
     };
     const removeFromFavourites = (id) => {
         const favs = JSON.parse(localStorage['Favourites']);
@@ -82,6 +99,12 @@ const Character = () => {
             localStorage.setItem('Favourites', JSON.stringify(newFavs));
             setFavourite(false);
         }
+        toast({
+            title: 'Removed to favourites',
+            status: 'error',
+            duration: 1200,
+            isClosable: true
+        });
     };
 
     const {
@@ -98,37 +121,33 @@ const Character = () => {
     } = data;
 
     return (
-        <Container maxW="md">
+        <Container mx="sm">
             <StyledImg src={image} alt={name} />
-            <Heading mt={2} mb={4}>
-                {name}
-            </Heading>
-
-            {isFavorite ? (
-                <Button
-                    rightIcon={<StarIcon />}
-                    colorScheme="teal"
-                    variant="outline"
-                    onClick={() => removeFromFavourites(id)}
-                >
-                    Remove from favorites
-                </Button>
-            ) : (
-                <Button
-                    rightIcon={<StarIcon />}
-                    colorScheme="teal"
-                    variant="solid"
-                    onClick={() => addToFavorite(id)}
-                >
-                    Add to favorites
-                </Button>
-            )}
+            <StyledHeading mt={4} mb={4}>
+                {name}{' '}
+                {isFavorite ? (
+                    <Button
+                        rightIcon={<StarIcon />}
+                        colorScheme="teal"
+                        variant="outline"
+                        onClick={() => removeFromFavourites(id)}
+                    >
+                        Remove from favorites
+                    </Button>
+                ) : (
+                    <Button
+                        rightIcon={<StarIcon />}
+                        colorScheme="teal"
+                        variant="solid"
+                        onClick={() => addToFavorite(id)}
+                    >
+                        Add to favorites
+                    </Button>
+                )}
+            </StyledHeading>
+            <Divider />
             <TableContainer>
                 <Table variant="simple">
-                    <TableCaption placement="top">
-                        <Heading as="h3">Character's info</Heading>
-                    </TableCaption>
-
                     <Tbody>
                         <Tr>
                             <Td>status</Td>

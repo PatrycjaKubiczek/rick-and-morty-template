@@ -1,10 +1,9 @@
-import { Container, Heading } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { Box, Heading } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar/Navbar';
 
-const Character = () => {
+const CharacterPage = () => {
     const favouritesFromStorage = localStorage
         .getItem('Favourites')
         .split('')
@@ -52,23 +51,25 @@ const Character = () => {
     }
 
     return (
-        <Container maxW="md">
-            <Navbar />
+        <>
             <Heading as="h1" size="xl">
                 {favouritesData.length === 0
                     ? 'No favourites :('
                     : favouritesData.length +
                       ' favourite character' +
                       (favouritesData.length > 1 ? 's' : '')}
-
-                {favouritesData.map((character) => (
-                    <Link to={`/character/${character.id}`}>
-                        <div key={character.id}>{character.name}</div>
-                    </Link>
-                ))}
             </Heading>
-        </Container>
+            <Box mt={4}>
+                {favouritesData.map((character) => (
+                    <div key={character.id}>
+                        <Link to={`/character/${character.id}`}>
+                            {character.name}
+                        </Link>
+                    </div>
+                ))}
+            </Box>
+        </>
     );
 };
 
-export default Character;
+export default CharacterPage;
